@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script type="text/javascript" src="../JS/KoolFileManagerImage.js"></script>
+<link rel="stylesheet" type="text/css" href="../JS/KoolFileManager.css"/>
+
+<style>
+	.li-sample { font-family:Segoe UI,arial,Malgun Gothic; font-size:12px; color:#666666; line-height:1.8em; margin-left:-30px; }
+	a { font-weight: bold; color:#348fd6; }
+	tr.tr-title td { font-family:Segoe UI,arial,Malgun Gothic; font-size:14px; color:#444444; border-top:solid 2px #565656; height:35px; }
+	tr.tr-desc td { font-family:Segoe UI,arial,Malgun Gothic; font-size:14px; color:#444444; border-top:solid 1px #dddddd; height:35px; }
+	tr.tr-file td { font-family:Segoe UI,arial,Malgun Gothic; font-size:14px; color:#444444; border-top:solid 1px #dddddd; padding:5px;}
+	tr.tr-submit td { text-align:center; border-bottom:solid 1px #dddddd; padding:0px 12px 4px 12px; }
+	#submitBtn { width: 597px; height:31px; background:url('../Image/submit.png'); border:none; }
+	#submitBtn:hover { cursor:pointer; }
+	#submitBtn:active, #submitBtn:focus, input:active, input:focus { outline: none; }
+	.text-input { font-family: Segoe UI,arial,Malgun Gothic; font-size: 12px; color: #888888; margin: 0px 10px 0px 10px; width:600px; height:20px; border: 0px; }
+</style>
+
+<script>
+///////// Setting the values used by KoolFileManager ///////////
+// uploaderVars: the variable having the values used by the uploader component
+// Set the values appropriately in your environment.
+// uploadUrl and uploadFieldName must be set appropriately in your environment.
+var uploadUrl = encodeURIComponent("http://www.koolchart.com/KoolFileManager/ServerFile/upload.php");
+var uploaderVars = "uploadUrl="+uploadUrl;
+
+//var uploadFieldName = "FileData";	// the field name of the file to be uploaded in the server
+//uploaderVars += "&uploadFieldName="+uploadFieldName;
+
+var maxFileCount = 3;		// the maximum number of files to be uploaded (if 0, unlimited number)
+uploaderVars += "&maxFileCount="+maxFileCount;
+
+var maxUploadSize = 0;		// the maximum size of the total files to be uploaded, MByte (if 0, unlimited size)
+uploaderVars += "&maxUploadSize="+maxUploadSize;
+
+var maxFileSize = 0;		// the maximum size of a file to be uploaded, MByte (if 0, unlimited size) 
+uploaderVars += "&maxFileSize="+maxFileSize;
+
+//var previewEnable = "false";		// whether or not to display the Preview icon for the file to be uploaded 
+//uploaderVars += "&previewEnable="+previewEnable;
+
+//var uploadGetData = "false";		// whether or not to have the server receive the uploading data - the default value is true
+//uploaderVars += "&uploadGetData="+uploadGetData;
+
+var doubleClickEnabled = "true";		// whether or not the double-click event is triggered when the user double-clicks on the selected file - the default value is false (if true, the itemDoubleClick function will be called)
+uploaderVars += "&doubleClickEnabled="+doubleClickEnabled;
+
+var dragMoveEnabled = "true";		// whether or not to have the user change the file sequence by drag and drop - the default value is false
+uploaderVars += "&dragMoveEnabled="+dragMoveEnabled;
+
+var previewImmediately = "true";		// whether or not to display the preview image of the file added last by the user - the default value is false
+uploaderVars += "&previewImmediately="+previewImmediately;
+
+// Uploader Styles
+//var uploadBtnImageUrl = "../Image/upload_button.png";									// the url of the image file to be displayed in the "Upload" button
+//uploaderVars += "&uploadBtnImageUrl="+uploadBtnImageUrl;
+uploaderVars += "&uploadBtnImageUrl=";													// if no value is set, the label's text will be displayed in the "Upload" button
+
+//var fileAddBtnImageUrl = "../Image/file_add_button.png";								// the url of the image file to be displayed in the "Add File" button
+//uploaderVars += "&fileAddBtnImageUrl="+fileAddBtnImageUrl;
+uploaderVars += "&fileAddBtnImageUrl=";													// if no value is set, the label's text will be displayed in the "Add File" button.
+
+//var fileRemoveBtnImageUrl = "../Image/file_delete_button.png";						// the url of the image file to be displayed in the "Delete File" button
+//uploaderVars += "&fileRemoveBtnImageUrl="+fileRemoveBtnImageUrl;
+uploaderVars += "&fileRemoveBtnImageUrl=";												// if no value is set, the label's text will be displayed in the "Delete File" button.
+
+//var cancelBtnImageUrl = "../Image/file_cancel_icon.png";								// the url of the image file to be displayed in the "Cancel Uploading" button
+//uploaderVars += "&cancelBtnImageUrl="+cancelBtnImageUrl;
+uploaderVars += "&cancelBtnImageUrl=";													// if no value is set, the label's text will be displayed in the "Cancel Uploading" button.
+
+var showControlBox = false;
+uploaderVars +="&showControlBox="+showControlBox;
+
+//After being synchronized (KoolFileManager, HTML Script), KoolFileManager calls the function set in the variable below
+var KoolOnLoadCallFunction = "KoolFileManagerOnLoad";
+uploaderVars += "&KoolOnLoadCallFunction="+KoolOnLoadCallFunction;
+
+///////// the end of setting the values used by KoolFileManager ///////////
+
+var KoolUploader;		// Uploader Component Variable
+
+// form submit
+function formSubmit() {
+	if (f1.title.value.length <= 0) {
+		alert("Please enter a title");
+		return;
+	}
+	if (f1.desc.value.length <= 0) {
+		alert("Please enter a description");
+		return;
+	}
+	if (KoolUploader.getUploadFileCount() <= 0) {
+		alert("Please select files");
+		return;
+	}
+	document.getElementById("submitBtn").disabled=true;
+	startUpload();
+}
+
+// Starting Uploading
+function startUpload(){
+	KoolUploader.startUpload();
+}
+
+// The function to be called when the user clicks on the "Cancel Uploading" button.
+function uploadCancel(uploaderID) {
+	//alert("uploaderID:"+uploaderID+" Uploading Canceled");;
+}
+
+// The function to be called when uploading is finished - when the value of uploadGetData is false
+function uploadComplete(uploaderID) {
+	//alert("uploaderID:"+uploaderID+" Uploading Completed");
+}
+
+// The function to be called when uploading is finished - when the value of uploadGetData is true
+function uploadCompleteData(uploaderID) {
+	//alert("uploaderID:"+uploaderID+" Uploading Completed (Uploading Data Included)");
+	var result = KoolUploader.getUploadResultFiles();
+	// alert(result[0]["name"]);
+	// passing the uploading data to the hidden input fields
+	// fileid will be set if the value of generateFileID is true
+	// the value received from the server after uploading is finished will be set in result (it can be used to receive the real path (or url) of the file saved in the server)
+	if (result != null) {
+		for (var i = 0; i < result.length; i++) {
+			f1.filename.value += result[i]["name"];
+			f1.filesize.value += result[i]["size"];
+			f1.fileid.value += result[i]["fileid"];
+			f1.result.value += result[i]["result"];
+			if (i < result.length-1) {
+				f1.filename.value += ",";
+				f1.filesize.value += ",";
+				f1.fileid.value += ",";
+				f1.result.value += ",";
+			}
+		}
+//alert(f1.filename.value);
+//alert(f1.filesize.value);
+//alert(f1.fileid.value);
+//alert(f1.result.value);
+	}
+	// form submit
+	f1.submit();
+}
+
+// The function to be called if IO error occurs while uploading
+function uploadIOError(uploaderID, msg) {
+	alert("uploaderID:"+uploaderID+" Uploading Failed\n"+msg);
+	document.getElementById("submitBtn").disabled=false;
+}
+
+// The function to be called when the user double-clicks on the file to be uploaded - when the value of doubleClickEnabled is true
+// Parameters
+//	uploaderID : the uploader ID
+//	rowIndex : the row no of the file double-clicked
+//	fileInfo : the information of the file double-clicked
+//        name - file name
+//        size - file size
+//        fileid - file ID - the file ID is generated if the value of generateFileID is true, the value for the file already uploaded is null
+//        url - the download url of the file already uploaded, the value for the file newly uploaded is null
+function itemDoubleClick(uploaderID, rowIndex, fileInfo) {
+	alert("uploaderID: the user ("+uploaderID+") clicked the file, (Row Index: " + rowIndex + ", Name: " + fileInfo.name + ")");
+}
+
+function KoolFileManagerOnLoad(){
+	KoolUploader = document.getElementById("Uploader");
+	document.getElementById("info").innerHTML = KoolUploader.updateUploadInfoText();
+}
+
+// If the user adds additional files, the function will be called by KoolUploader
+function fileAdded(uploaderID, addFileArr) {
+	document.getElementById("info").innerHTML = KoolUploader.updateUploadInfoText();
+}
+
+function browse(){
+	KoolUploader.addFile();
+}
+
+function remove(){
+	KoolUploader.removeFile();	
+	document.getElementById("info").innerHTML = KoolUploader.updateUploadInfoText();
+}
+
+function upload(){
+	KoolUploader.startUpload();
+	document.getElementById("info").innerHTML = KoolUploader.updateUploadInfoText();
+}
+
+function fileRemoved(){
+	//document.getElementById("info").innerHTML = KoolUploader.updateUploadInfoText();
+	alert("File Removed");
+}
+
+KoolFileManager.create("Uploader", "chartHolder", uploaderVars, "100%", "100%");
+</script>
+</head>
+
+<body>
+	<form name="f1" method="post">
+		<table style="border:none; border-spacing:0">
+			<tr>
+				<td colspan="2">
+					<input type="hidden" name="filename">
+					<input type="hidden" name="filesize">
+					<input type="hidden" name="fileid">
+					<input type="hidden" name="result">
+				</td>
+			</tr>
+		
+			<tr>
+				<td colspan="2">
+					<ul style="list-style-type: disc;">
+						<li class="li-sample">This sample shows how to use the custom HTML tags.</li>
+						<li class="li-sample">If you look into the HTML code of this sample, you will find the API functions provided by KoolFileManager<br> (addFile(), removeFile()) are called in the JavaScript code.</li>
+						<li class="li-sample">You can add the files to the Upload File list by drag and drop.</li>
+						<li class="li-sample">Please try to drag a file into the Upload File list or click on the Add File button.</li>
+						<li class="li-sample"><a href="http://www.koolchart.com/KoolFileManager/ServerFile/list.php" target="_blank">List of Files Uploaded</a></li>
+					</ul>
+				</td>
+			</tr>
+			
+			<tr>
+				<td height="35" colspan="2"></td>
+			</tr>
+		
+			<tr class="tr-title">
+				<td style="width:103px; border-right:solid 1px #f0f0f0;"><span style="font-weight:bold; margin-left:10px;">Title</span></td>
+				<td><input type="text" name="title" class="text-input" ></td>
+			</tr>
+			<tr class="tr-desc">
+				<td style="border-right:solid 1px #f0f0f0;"><span style="font-weight:bold; margin-left:10px;">Description</span></td>
+				<td><input type="text" name="desc" class="text-input" ></td>
+			</tr>
+			<tr class="tr-file">
+				<td rowspan="2" style="border-bottom:solid 1px #dddddd; border-right:solid 1px #f0f0f0;"><span style="font-weight:bold; margin-left:10px;">Add Files</span></td>
+				<td>
+					<a  href="javascript:browse()" id="submitBtn2"><img src="../Image/file_add_button_image.png" style="margin:8px 0px 0px 10px;"></a>
+					<a  href="javascript:remove()" id="submitBtn3"><img src="../Image/file_delete_button_image.png" ></a>
+					<span id="info" style="font-size:15px;float:right;top:20px;right:10px;position:relative"></span>
+					<div id="chartHolder" style="height:200px;">
+					</div>
+				</td>
+			</tr>
+			<tr class="tr-submit">
+				<td><span></span><input id="submitBtn" type="button" name="submitBtn" alt="Submit" onclick="formSubmit()" /></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

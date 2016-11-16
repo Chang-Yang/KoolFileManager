@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>KoolFileManager</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="KoolFileManager for HTML5, Riamore Soft 2016">
+	<meta name="keywords" content="HTML5,File Uploader,Chart,JavaScript,CSS,Ajax,Graph,KoolChart">
+	<meta name="description" content="">
+</head>
+
+<link href="./Web/style.css" rel="stylesheet">
+
+<style type="text/css">
+	iframe { overflow: hidden; }
+	.li-overview { font-family: Segoe UI,arial,Malgun Gothic; font-size: 12px; color: #666666; line-height:1.5em; cursor:auto; margin-left:0px; }
+	tr.tr-title td { font-family: Segoe UI,arial,Malgun Gothic; font-weight: bold; color: #348fd6; padding: 18px 0px 10px 40px; }
+	tr.tr-content td { font-family: Segoe UI,arial,Malgun Gothic; color: #666666; border-top: solid 1px #e3e3e3; padding: 10px 0px 0px 55px;}
+</style>
+
+<script type="text/javascript" src="./Web/JS/sample_info.js"></script>
+<script type="text/javascript">
+	var active_sub_li;
+	var _forLocalChromeCss = {
+		active_sub_li : "font-weight: bold; color:#ffffff; text-decoration: underline;",
+		non_active_sub_li : "font-weight: normal; color:#c9ccd0; text-decoration: none;"
+	}
+	
+	function removeHyphen(str){
+		var i, n, retStr = "";
+		str = str.toLowerCase();
+		str = str.replace(/\"| /g,"");
+		str = str.split("-");
+		retStr = str[0];
+		for(i = 1, n = str.length ; i < n ; i += 1){
+			retStr += str[i].substring(0, 1).toUpperCase() + str[i].substring(1, str[i].length);
+		}
+		return retStr;
+	}
+	
+	var demoEvent = function(role, target, type, handler){
+		var event;
+	
+		if(role == "add"){
+			event = "addEventListener";
+			if(!window[event]){
+				event = "attachEvent";
+				type = "on" + type;
+			}
+		}else{
+			event = "removeEventListener";
+			if(!window[event]){
+				event = "detachEvent";
+				type = "on" + type;
+			}
+		}
+		if(window[event])
+			target[event](type, handler);
+	};
+	
+	function changeCss(target, className){
+		var i, n, 
+			j, m,
+			cssText,
+			rules;
+
+		cssText = _forLocalChromeCss[className.substring(1, className.length)];
+		
+		if(cssText.indexOf("{") > -1)
+			cssText = cssText.substring(cssText.indexOf("{") + 1, cssText.indexOf("}"));
+		cssText = cssText.split(";");
+		
+		for(i = 0, n = cssText.length ; i < n ; i += 1){
+			if(cssText[i] == "" || cssText[i] == " ")
+				continue;
+			rules = cssText[i].split(":");
+			target.style[removeHyphen(rules[0])] = rules[1];//.substring(1, rules[1].length);
+		}
+	}
+	
+	function subMenuItemClick(e){
+		var li = active_sub_li;
+		var title = document.getElementById("content_title");
+		var content = document.getElementById("content_chart");
+		var contentIFrame = document.getElementById("content_iframe");
+		var item = e.target || e.srcElement;
+		var frame = document.createElement("iframe");
+		
+		if (contentIFrame){
+			contentIFrame.parentNode.removeChild(contentIFrame);
+			contentIFrame = null;
+		}
+		
+		if (li)
+			changeCss(li, ".non_active_sub_li");
+		changeCss(item, ".active_sub_li");
+		active_sub_li = item;
+
+		document.getElementById("overview").style.display = "none";
+		document.getElementById("chart_sample").style.display = "block";
+		
+		title.innerHTML = item.innerHTML;
+		frame.id = "content_iframe";
+		frame.width = "100%";
+		frame.height = "100%";
+		frame.frameBorder = 0;
+		frame.src = baseurl + item.url + ".html";
+		content.style.height = "700px";
+		content.appendChild(frame);
+	}
+	
+	window.onload = function(){
+		var ul,
+		i, n, e,
+		p = document.getElementById("default_type"),
+		m = document.getElementById("prop_content");
+
+		/* default types */
+		html = "<ul>";
+		for(i = 0, n = default_types.length ; i < n ; i += 1){
+			html += "<li>" + default_types[i].n + "</li>";
+		}
+
+		html += "</ul>";
+		p.innerHTML = html.replace('<br>',' ');
+
+		ul = p.childNodes[0];
+
+		for(i = 0, n = ul.childNodes.length ; i < n ; i += 1){
+			e = ul.childNodes[i];
+			e.url = default_types[i].u;
+			e.f = false;
+			demoEvent("add", e, "click", subMenuItemClick);
+		}
+		
+		/* props */
+		html = "<ul>";
+		for(i = 0, n = props.length ; i < n ; i += 1){
+			html += "<li>" + props[i].n + "</li>";
+		}
+
+		html += "</ul>";
+		m.innerHTML = html.replace('<br>',' ');
+
+		ul = m.childNodes[0];
+
+		for(i = 0, n = ul.childNodes.length ; i < n ; i += 1){
+			e = ul.childNodes[i];
+			e.url = props[i].u;
+			e.f = false;
+			demoEvent("add", e, "click", subMenuItemClick);
+		}
+	}
+	
+	function getPDF() {
+		var popupWindow = window.open("./Docs/KoolFileManager_User.pdf", "_blank");
+		if (popupWindow)
+			popupWindow.focus();
+	}
+</script>
+</head>
+<body>
+	<div id="wrap">
+		<div id="menu_title">
+			<div id="title">
+				<div id="title_kor">KoolFileManager</div>
+			</div>
+			<div id="manual">
+				<div id="manual_buttons">
+				<input type="image" src="./Web/Images/home.png" onclick="javascript:location.href='./index.html'" />
+				<input type="image" src="./Web/Images/manual.png" onclick="getPDF();" />
+				</div>
+			</div>
+			
+			<div id="menu_content">
+				<div id="chart_type">
+					<div id="type_title" class="title"><span>UPLOADER</span></div>
+					<div id="type_content">
+						<div id="default_type" class="content"></div>
+					</div>
+				</div>
+				<div id="chart_prop">
+					<div id="prop_title" class="title"><span>IMAGE UPLOADER</span></div>
+					<div id="type_content">
+						<div id="prop_content" class="content"></div>
+					</div>
+				</div>
+				<div id="reference">
+					<div>
+						<a class="menu_link" href="http://www.koolchart.com" target="_blank">http://www.koolchart.com</a>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div id="content">
+			<div id="overview">
+				<div class="content-title">Features</div>
+				<table style="border:none; border-spacing:0">
+					<tr class="tr-title">
+						<td>Uploader, ImageUploader</td>
+					</tr>
+					<tr class="tr-content">
+						<td>
+							<ul style="list-style-type: disc;">
+								<li class="li-overview">Multiple files to be uploaded can be selected from your local PC</li>
+								<li class="li-overview">File preview function for the image file</li>
+								<li class="li-overview">File upload sequence can be changed by drag and drop the file name in the upload file list</li>
+								<li class="li-overview">Built-in "Upload" and "Cancel" buttons</li>
+								<li class="li-overview">Built-in Progress Bar for checking the uploading status (Upload Speed / Total Time Elapsed / Current Time Elapsed / Time Remaining / The Total Number of Files Uploaded / The Sequence of the File Currently Being Uploaded)</li>
+								<li class="li-overview">File size limitation setting (maximum 2GB is recommended)</li>
+								<li class="li-overview">File type limitation setting (e.g. upload only image files, multiple conditions can be used for limitation setting - AND) </li>
+								<li class="li-overview">Change the files already uploaded (add additional files, delete files) </li>
+								<li class="li-overview">Change the built-in button styles</li>
+								<li class="li-overview">Events can be generated or triggered using JavaScript (Uploading Completed / Cancel Uploading : triggered for each file if multiple files are uploaded, Uploading Failed, Add File, Delete File, Button Click, Double Click) </li>
+								<li class="li-overview">Additional parameters to the server-side script can be defined</li>
+							</ul>
+						</td>
+					</tr>
+					<tr class="tr-title">
+						<td>ImageUploader Only</td>
+					</tr>
+					<tr class="tr-content">
+						<td>
+							<ul style="list-style-type: disc;">
+								<li class="li-overview">Automatic resizing before uploading if the image size exceeds a predefined size</li>
+							</ul>
+						</td>
+					</tr>				
+				</table>
+			</div>
+			<div id="chart_sample">
+				<div id="content_title" class="content-title"></div>
+				<div id="content_chart"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+* To install, copy the "KoolFileManager" directory to the directory of the Web server
+   where KoolFileManager will run and files will be uploaded.
+
+* The default file upload directory of samples is "KoolFileManager/TestUpload". 
+   You can change the directory by modifying the sample PHP files 
+   in the "KoolFileManager/ServerFile" directory. e.g.)  $path="../TestUpload"
+
+* Please change the URL of the Web server in the sample HTML files. 
+   e.g.) "http://www.koolchart.com" --> "http://yourdomain.com" 

@@ -1,0 +1,375 @@
+.KoolFileManager_Root{
+	background-color:#afd0ff;
+	position:absolute;
+	font-family: Segoe UI,arial,Malgun Gothic;
+	font-size:12px;
+}
+.KoolFileManager_VBox {		
+	font-size:13px;
+}
+.KoolFileManager_ControlBox {
+	
+}
+.KoolFileManager_Info {	
+	position:relative;
+	float:left;
+	left:10px;
+	top:5px;
+}
+.KoolFileManager_UploadButton {	
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:arial;
+	font-size:12px;
+	padding : 5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	position:relative;
+	float:right;
+	margin:0px 10px 0px 0px;
+	top:3px;
+}
+.KoolFileManager_UploadButton:hover {
+	background-color:#f6f6f6;
+}
+.KoolFileManager_UploadButton:active {
+	position:relative;
+	top:1px;
+}
+.KoolFileManager_RemoveButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:arial;
+	font-size:12px;
+	padding : 5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	position:relative;
+	float:right;
+	margin:0px 10px 0px 0px;
+	top:3px;
+}
+.KoolFileManager_RemoveButton:hover {
+	background-color:#f6f6f6;
+}
+.KoolFileManager_RemoveButton:active {
+	position:relative;
+	top:1px;
+}
+.KoolFileManager_AddButton {	
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background-color:#ffffff;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:arial;
+	font-size:12px;
+	padding : 5px 10px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+	position:relative;
+	float:right;
+	margin:0px 10px 0px 0px;
+	top:3px;
+}
+.KoolFileManager_AddButton:hover {
+	background-color:#f6f6f6;
+}
+.KoolFileManager_AddButton:active {
+	position:relative;
+	top:1px;
+}
+.KoolFileManager_ButtonImage {
+	position:relative;
+	float:right;
+	top:3px;
+	width:93px;
+	height:28px;
+	background-size:100%;
+	border:none;
+	cursor:pointer;
+	margin:4px 10px 0px 0px;
+}
+.KoolFileManager_PreviewBox {
+	
+}
+.KoolFileManager_PreviewImageBox {
+	border-style:solid;
+	border-color:#dddddd; 
+	border-width:1px;
+	background-color:#ffffff;
+}
+.KoolFileManager_PreviewImage {	
+	position:relative;
+}
+.KoolFileManager_ListBox {
+	background-color:#ffffff;
+	position:relative;
+	border-style:solid;
+	border-width:0px;
+	top:10px;
+}
+.KoolFileManager_ListItem {	
+	position:relative;
+	overflow:hidden;
+	float:left;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	margin-right:5px;
+	margin-bottom:5px;
+	height:24px;
+}
+.KoolFileManager_ListItemText {	
+	position:relative;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	cursor:default;
+}
+.KoolFileManager_ListItemRemoveButton {	
+	position:relative;
+	top:0px;
+	float:right;
+}
+.KoolFileManager_IListBox {	
+	
+}
+.KoolFileManager_ImageBox {
+	position:relative;
+	border-style:solid;
+	border-width:1px;
+	border-color:#DDDDDD;
+	background-color:#ffffff;
+}
+.KoolFileManager_ImageListBox {	
+	background-color:#ffffff;
+	position:relative;
+	overflow-y:auto;
+}
+.KoolFileManager_IListItem {	
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	position:relative;
+	overflow:hidden;
+	float:left;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	margin-right:5px;
+	margin-bottom:5px;
+	background-color:#FFFFFF;
+}
+.KoolFileManager_IListItemImageBox {	
+	position:relative;
+	border:1px solid #DDDDDD;
+	background-color:#F7F7F7;
+}
+.KoolFileManager_IListItemImage {	
+	position:absolute;
+}
+.KoolFileManager_IListItemText {	
+	position:relative;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	cursor:default;
+	font-size:13px;
+}
+.KoolFileManager_IListItemRemoveButton {	
+	position:absolute;
+	float:right;
+	
+}
+.KoolFileManager_IListItemDownloadButton {	
+	position:absolute;
+	float:right;
+}
+
+.KoolFileManagerProgressBackground {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	z-index: 1000;
+	display: block;
+	visibility: visible;
+	background-color: #cccccc;
+	filter: alpha(opacity=40);
+	-moz-opacity: 0.4;
+	-khtml-opacity: 0.4;
+	opacity: 0.4;
+}
+.KoolFileManagerProgressPanel {
+	position: absolute;
+	display: table;
+	background-color: #EEEEEE;
+	border-radius: 5px;
+	border: 1px solid #6593CF;
+	z-index: 1200;
+	text-align: center;
+	font-family: helvetica,tahoma,verdana,sans-serif;
+	font-size: 13px;
+	color: #6593CF;
+}
+.KoolFileManagerProgressBarBox {
+	position: relative;
+	width: 400px;
+	height: 20px;
+	top: 15px;
+	left: 15px;
+	border-radius: 5px;
+	background-color: #ffffff;
+	border: 1px solid #6593CF;
+	padding: 3px;
+    overflow: hidden;
+	line-height: 20px;
+}
+.KoolFileManagerProgressBarBoxTxt {
+	width: 400px;
+	top: 3px;
+	left: 3px;
+	text-align: center;
+}
+.KoolFileManagerProgressBar {
+	position: absolute;
+	left: 3px;
+	width: 0px;
+	height: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #73A1E0;
+	text-align: center;
+
+	/* IE10 Consumer Preview */
+	background-image: -ms-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Mozilla Firefox */
+	background-image: -moz-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Opera */
+	background-image: -o-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Webkit (Safari/Chrome 10) */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B2CBEE), color-stop(0.5, #88AFE5), color-stop(0.51, #73A1E0), color-stop(1, #5E93DB));
+
+	/* Webkit (Chrome 11+) */
+	background-image: -webkit-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* W3C Markup, IE10 Release Preview */
+	background-image: linear-gradient(to bottom, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* IE6 - 9 */
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#FFB2CBEE', EndColorStr='#FF5E93DB');
+
+    border-right-color: #6593CF;
+    border-top-color: #C6D7ED;
+}
+.KoolFileManagerProgressBarTxt {
+	width: 400px;
+	height: 20px;
+	left: 0px;
+	color: #FFFFFF;
+	text-align: center;
+}
+.KoolFileManagerProgressSpeedBox {
+	position: relative;
+	width: 100%;
+	text-align: right;
+	top: 40px;
+	left: 15px;
+}
+.KoolFileManagerProgressSpeedBoxTxt {
+	float: left;
+	text-align: left;
+	color: #999999;
+}
+.KoolFileManagerProgressPanelEach {
+	position: relative;
+	display: table;
+	/*background-color: #EEEEEE;*/
+	border-radius: 5px;
+	/* border: 1px solid #6593CF; */
+    overflow: hidden;
+	z-index: 1200;
+	right:3px;
+	text-align: center;
+	font-family: helvetica,tahoma,verdana,sans-serif;
+	font-size: 12px;
+	color: #6593CF;
+}
+.KoolFileManagerProgressBarBoxEach {
+	position: relative;
+	border-radius: 5px;
+	background-color: #ffffff;
+	border: 1px solid #6593CF;
+    overflow: hidden;
+	line-height: 20px;
+}
+.KoolFileManagerProgressBarBoxTxtEach {
+	width: 400px;
+	text-align: center;
+}
+.KoolFileManagerProgressBarEach {
+	position: absolute;
+	width: 0px;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #73A1E0;
+	text-align: center;
+
+	/* IE10 Consumer Preview */
+	background-image: -ms-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Mozilla Firefox */
+	background-image: -moz-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Opera */
+	background-image: -o-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* Webkit (Safari/Chrome 10) */
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B2CBEE), color-stop(0.5, #88AFE5), color-stop(0.51, #73A1E0), color-stop(1, #5E93DB));
+
+	/* Webkit (Chrome 11+) */
+	background-image: -webkit-linear-gradient(top, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* W3C Markup, IE10 Release Preview */
+	background-image: linear-gradient(to bottom, #B2CBEE 0%, #88AFE5 50%, #73A1E0 51%, #5E93DB 100%);
+
+	/* IE6 - 9 */
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#FFB2CBEE', EndColorStr='#FF5E93DB');
+
+    border-right-color: #6593CF;
+    border-top-color: #C6D7ED;
+}
+.KoolFileManagerProgressBarTxtEach {
+	width: 400px;
+	height: 20px;
+	left: 0px;
+	color: #FFFFFF;
+	text-align: center;
+}
