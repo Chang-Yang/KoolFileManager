@@ -20,3 +20,6 @@ Features:
         (Uploading Completed / Cancel Uploading : triggered for each file if multiple files are uploaded, Uploading Failed, Add File, Delete File, Button Click, Double Click)
 11. Additional parameters to the server-side script can be defined
 12. Automatic resizing before uploading if the image size exceeds a predefined size
+
+Demo (upload size is limited to 1KB)
+http://www.koolchart.com/KoolFileManager
